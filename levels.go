@@ -5,11 +5,9 @@ type Level uint32
 
 // Predefined logging levels
 const (
-	// None is intended to turn off logging.
-	None Level = iota
 	// Fatal - Designates very severe error events that will presumably lead
 	// the application to abort (non-recoverable event).
-	Fatal
+	Fatal Level = iota
 	// Error - Designates error events that might still allow
 	// the application to continue running.
 	Error
@@ -25,8 +23,6 @@ const (
 
 func (l Level) String() (name string) {
 	switch l {
-	case None:
-		name = "NONE"
 	case Fatal:
 		name = "FATAL"
 	case Error:

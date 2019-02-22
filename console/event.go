@@ -5,6 +5,8 @@ import (
 	"runtime"
 	"strconv"
 	"time"
+
+	"go.melnyk.org/mlog"
 )
 
 type event struct {
@@ -55,11 +57,38 @@ func (evt *event) addTimestamp() {
 	b := buf[:0]
 	ts := time.Now()
 	b = ts.AppendFormat(b, timestampFormat)
+
+	// some formating
+	evt.buffer.WriteByte('[')
+	evt.buffer.WriteByte(' ')
+
+	// copy timestamp
 	evt.buffer.Write(b)
-	// 3 spaces after
+
+	// other formating stuff - 3 spaces after
 	for i := len(timestampFormat) - len(b) + 3; i > 0; i-- {
 		evt.buffer.WriteByte(' ')
 	}
+}
+
+func (evt *event) justJoinLevel(lv mlog.Level) {
+
+	representation := "UNKNOWN]\t"
+
+	switch lv {
+	case mlog.Fatal:
+		representation = "\033[31mFATAL   \033[0m]\t"
+	case mlog.Error:
+		representation = "\033[31mERROR   \033[0m]\t"
+	case mlog.Warning:
+		representation = "\033[33mWARNING \033[0m]\t"
+	case mlog.Info:
+		representation = "\033[32mINFO    \033[0m]\t"
+	case mlog.Verbose:
+		representation = "VERBOSE ]\t"
+	}
+
+	evt.buffer.WriteString(representation)
 }
 
 func (evt *event) justJoinString(value string) {

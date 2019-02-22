@@ -36,7 +36,7 @@ func (l *logger) Event(level mlog.Level, cb func(evt mlog.Event)) {
 
 func (l *logger) output(level mlog.Level, str string, cb func(evt mlog.Event)) {
 	// Level filter
-	if lv := mlog.Level(atomic.LoadUint32((*uint32)(&l.level))); lv < level || lv == mlog.None {
+	if lv := mlog.Level(atomic.LoadUint32((*uint32)(&l.level))); lv < level {
 		return
 	}
 
@@ -45,9 +45,7 @@ func (l *logger) output(level mlog.Level, str string, cb func(evt mlog.Event)) {
 
 	// Header
 	evt.addTimestamp()
-	//evt.String(fieldLevel, l.levelToString(level)) // for structured log
-	evt.justJoinString(l.levelDisplay(level)) // just simple console log
-	//evt.String(fieldName, l.name) // for structured log
+	evt.justJoinLevel(level)   // just simple console log
 	evt.justJoinString(l.name) // just simple console log
 
 	// Message or custom event
@@ -91,24 +89,4 @@ func (l *logger) output(level mlog.Level, str string, cb func(evt mlog.Event)) {
 
 	// Return event to the pool
 	putEvent(evt)
-}
-
-func (l *logger) levelDisplay(lv mlog.Level) (name string) {
-	switch lv {
-	case mlog.None:
-		name = "NONE    "
-	case mlog.Fatal:
-		name = "\033[31mFATAL   \033[0m"
-	case mlog.Error:
-		name = "\033[31mERROR   \033[0m"
-	case mlog.Warning:
-		name = "\033[33mWARNING \033[0m"
-	case mlog.Info:
-		name = "\033[32mINFO    \033[0m"
-	case mlog.Verbose:
-		name = "VERBOSE "
-	default:
-		name = "UNKNOWN"
-	}
-	return
 }
