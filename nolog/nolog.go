@@ -26,7 +26,7 @@ func (lb *logbook) SetLevel(string, mlog.Level) error {
 
 func (lb *logbook) Levels() mlog.Levels {
 	lvs := make(mlog.Levels)
-	lvs[mlog.Default] = mlog.None
+	lvs[mlog.Default] = mlog.Fatal
 	return lvs
 }
 
