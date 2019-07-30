@@ -85,7 +85,7 @@ func (evt *event) justJoinLevel(lv mlog.Level) {
 	case mlog.Info:
 		representation = "\033[32mINFO    \033[0m]\t"
 	case mlog.Verbose:
-		representation = "VERBOSE ]\t"
+		representation = "\033[37mVERBOSE \033[0m]\t"
 	}
 
 	evt.buffer.WriteString(representation)
