@@ -5,14 +5,14 @@ type Levels map[string]Level
 
 // Logbook interface provides an access to Logbook implementation for an app
 type Logbook interface {
-	SetLevel(string, Level) error
-	Levels() Levels
-	Joiner() Joiner
+	SetLevel(string, Level) error // Set level to logger
+	Levels() Levels               // Get levels of all loggers
+	Joiner() Joiner               // Get joiner interface for logbook
 }
 
 // Joiner interface allows component to join Logbook via creating/getting named logger
 type Joiner interface {
-	Join(string) Logger
+	Join(string) Logger // Join logger to logbook (in other words - get logger interface)
 }
 
 // Event provides an access to add custom fields/data to a log
