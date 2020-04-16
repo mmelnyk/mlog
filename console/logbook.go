@@ -58,9 +58,7 @@ func (lb *logbook) Levels() mlog.Levels {
 
 	lvs[mlog.Default] = lb.defaultlevel
 	for k, v := range lb.loggers {
-		if v.customlevel {
-			lvs[k] = mlog.Level(atomic.LoadUint32((*uint32)(&v.level)))
-		}
+		lvs[k] = mlog.Level(atomic.LoadUint32((*uint32)(&v.level)))
 	}
 
 	return lvs
