@@ -4,14 +4,52 @@
 mlog is set of defined interfaces to add customable and high performance logging. It is not a logging framework with fancy output, but it allows to build this framework in effective way (see console logger as example).
 
 ## Why?
+We can find many fantastic and popular loggers (just a few examples - logrus and zap) for our golang projects and they work very well in most condition. However, there is a few cases when they do not work as expected:
+ - logger for "as performant as possible" code - yes, logs are good for troubleshooting, but logger can introduce huge performance impact on our highly optimized code.
+ - "output polution" - have you used 3rd party modules with enabled logging in your project?
 
+So, I created mlog to solve following tasks:
 1. Unification of logging through different components
-2. Effective implementation
+2. Framework for effective logging implementation
 3. Customization for main app needs
 
-## How?
+## Features
+- Blazing fast
+- Low to zero allocation
+- Level logging
+- Very simple
+- Flexibility and High level of customization
 
-TBD
+## How?
+## Flexibility
+Main mlog module just defines set of interfaces for logbooks and loggers. Also mlog includes basic (but performant) nolog and console inmplementations. In case if special logger needed (e.g. structured), it can be easly implemented (mlog has very simple interface).
+
+## Performance
+Basic interface and logging via closires allow mlog to have very minimal instrumentation overhead and zero allocation logging. See benchmarks.
+
+### Leveled Logging
+mlog defines logging at the following levels:
+ - Fatal
+ - Error
+ - Warning
+ - Info
+ - Verbose
+
+We can control default and dedicasted logging level via logbook's SetLevel call.
+Example:
+```
+...
+	lb := console.NewLogbook(os.Stdout)
+	lb.SetLevel(mlog.Default, mlog.Error) // Set Error as default level for whole logbook
+	lb.SetLevel("myapp", mlog.Verbose)    // Set Verbose for myapp logger
+...
+```
+
+## Concept
+mlog defines:
+- Logbook as main holder for all loggers
+- Joiner as a way to get/join logger into logbook
+- Logger as a way to output log messages
 
 ## Examples
 
@@ -27,9 +65,9 @@ import (
 )
 
 ...
-	lb := console.NewLogbook(os.Stdout)
-	lb.SetLevel(mlog.Default, mlog.Verbose)
-	logger:=lb.Joiner().Join("test")
+	lb := console.NewLogbook(os.Stdout) // Create new logbook from console implementation
+	lb.SetLevel(mlog.Default, mlog.Verbose) // Set default logging level to Verbose
+	logger:=lb.Joiner().Join("test") // Get (join) logger with name "test"
 ...
 	// Direct call
 	logger.Info("Info message")
