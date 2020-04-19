@@ -5,7 +5,7 @@ type Levels map[string]Level
 
 // Logbook interface provides an access to Logbook implementation for an app
 type Logbook interface {
-	SetLevel(string, Level) error // Set level to logger
+	SetLevel(string, Level) error // Set level to logger; possible error - ErrDisabledLogging
 	Levels() Levels               // Get levels of all loggers
 	Joiner() Joiner               // Get joiner interface for logbook
 }
@@ -21,6 +21,7 @@ type Event interface {
 	Int(string, int)
 	Uint(string, uint)
 	Hex(string, uint)
+	Error(string, error)
 }
 
 // Logger allows to add event/messages to logbook

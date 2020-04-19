@@ -20,20 +20,25 @@ type logbook struct {
 	// nolog logbook and joiner
 }
 
+// SetLevel is part of mlog.Logbook interface implementation
 func (lb *logbook) SetLevel(string, mlog.Level) error {
-	return nil
+	// Logging is disabled, return error
+	return mlog.ErrDisabledLogging
 }
 
+// Levels is part of mlog.Logbook interface implementation
 func (lb *logbook) Levels() mlog.Levels {
+	// Logging is disabled, no logging levels
 	lvs := make(mlog.Levels)
-	lvs[mlog.Default] = mlog.Fatal
 	return lvs
 }
 
+// Joiner is part of mlog.Logbook interface implementation
 func (lb *logbook) Joiner() mlog.Joiner {
 	return lb
 }
 
+// Join is part of mlog.Joiner interface implementation
 func (lb *logbook) Join(string) mlog.Logger {
 	return &logger{}
 }
@@ -42,3 +47,9 @@ func (lb *logbook) Join(string) mlog.Logger {
 func NewLogbook() mlog.Logbook {
 	return &logbook{}
 }
+
+// Interface implementation check
+var (
+	_ mlog.Logbook = &logbook{}
+	_ mlog.Logger  = &logger{}
+)

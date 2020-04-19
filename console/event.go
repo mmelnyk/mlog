@@ -13,6 +13,11 @@ type event struct {
 	buffer bytes.Buffer
 }
 
+// Interface implementation check
+var (
+	_ mlog.Event = &event{}
+)
+
 func (evt *event) String(name string, value string) {
 	evt.buffer.WriteString(name)
 	evt.buffer.WriteByte('=')
@@ -48,6 +53,17 @@ func (evt *event) Hex(name string, value uint) {
 	evt.buffer.WriteString("=0x")
 	evt.buffer.Write(b)
 	evt.buffer.WriteByte(' ')
+}
+
+func (evt *event) Error(name string, value error) {
+	evt.buffer.WriteString(name)
+	if value != nil {
+		evt.buffer.WriteByte('=')
+		evt.buffer.WriteString(value.Error())
+		evt.buffer.WriteByte(' ')
+	} else {
+		evt.buffer.WriteString("=nil ")
+	}
 }
 
 // Formating part

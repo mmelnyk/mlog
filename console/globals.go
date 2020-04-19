@@ -23,6 +23,7 @@ func getEvent() *event {
 
 func putEvent(evt *event) {
 	if evt != nil && evt.buffer.Len() < maxAllowedEventBuffer {
+		evt.buffer.Reset()
 		eventPool.Put(evt)
 	}
 }

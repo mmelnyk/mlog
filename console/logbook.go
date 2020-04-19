@@ -15,6 +15,11 @@ type logbook struct {
 	loggers      map[string]*logger
 }
 
+// Interface implementation check
+var (
+	_ mlog.Logbook = &logbook{}
+)
+
 func (lb *logbook) SetLevel(name string, level mlog.Level) error {
 	lb.mu.Lock()
 	defer lb.mu.Unlock()

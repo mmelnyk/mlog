@@ -15,6 +15,11 @@ type logger struct {
 	out         io.Writer
 }
 
+// Interface implementation check
+var (
+	_ mlog.Logger = &logger{}
+)
+
 func (l *logger) Verbose(msg string) {
 	l.output(mlog.Verbose, msg, nil)
 }
@@ -41,7 +46,6 @@ func (l *logger) output(level mlog.Level, str string, cb func(evt mlog.Event)) {
 	}
 
 	evt := getEvent()
-	evt.buffer.Reset()
 
 	// Header
 	evt.addTimestamp()
