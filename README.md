@@ -1,5 +1,5 @@
 # mlog
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/mmelnyk/mlog/blob/master/LICENSE) [![Actions Status](https://github.com/mmelnyk/mlog/workflows/Test/badge.svg)](https://github.com/mmelnyk/mlog/actions)[![GoDoc](https://godoc.org/go.melnyk.org/mlog?status.svg)](https://godoc.org/go.melnyk.org/mlog) [![Go Report Card](https://goreportcard.com/badge/go.melnyk.org/mlog)](https://goreportcard.com/report/go.melnyk.org/mlog)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/mmelnyk/mlog/blob/master/LICENSE) [![Actions Status](https://github.com/mmelnyk/mlog/workflows/Test/badge.svg)](https://github.com/mmelnyk/mlog/actions) [![GoDoc](https://godoc.org/go.melnyk.org/mlog?status.svg)](https://godoc.org/go.melnyk.org/mlog) [![Go Report Card](https://goreportcard.com/badge/go.melnyk.org/mlog)](https://goreportcard.com/report/go.melnyk.org/mlog) [![Coverage Status](https://codecov.io/gh/mmelnyk/mlog/branch/master/graph/badge.svg)](https://codecov.io/gh/mmelnyk/mlog)
 
 mlog is set of defined interfaces to add customable and high performance logging. It is not a logging framework with fancy output, but it allows to build this framework in effective way (see console logger as example).
 
