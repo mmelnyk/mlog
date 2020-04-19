@@ -1,4 +1,4 @@
-# mlog
+# :ledger: mlog
 [![License][license-img]][license] [![Actions Status][action-img]][action] [![GoDoc][godoc-img]][godoc] [![Go Report Card][goreport-img]][goreport] [![Coverage Status][codecov-img]][codecov]
 
 mlog is set of defined interfaces to add customable and high performance logging. It is not a logger with fancy output, but it allows to build any logger in effective way using mlog as base framework (see console logger as example).
@@ -37,7 +37,7 @@ mlog defines logging at the following levels:
  - Info
  - Verbose
 
-**Warning** - logger.Fatal and logger.Panic do **NOT DO** calls panic() or os.Exit() functions. You **MUST** consider **the logger does not control your application flow**.
+:exclamation: **Warning** - logger.Fatal and logger.Panic do **NOT DO** calls panic() or os.Exit() functions. You **MUST** consider **the logger does not control your application flow**.
 
 We can control default and dedicasted logging level via logbook's SetLevel call.
 Example:

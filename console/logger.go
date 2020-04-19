@@ -3,7 +3,6 @@ package console
 import (
 	"io"
 	"runtime"
-	"sync/atomic"
 
 	"go.melnyk.org/mlog"
 )
@@ -44,7 +43,10 @@ func (l *logger) Event(level mlog.Level, cb func(evt mlog.Event)) {
 
 func (l *logger) output(level mlog.Level, str string, cb func(evt mlog.Event)) {
 	// Level filter
-	if lv := mlog.Level(atomic.LoadUint32((*uint32)(&l.level))); lv < level {
+	// why not atomic.LoadUint32... it's not expected the level is changed dynamicly
+	// too often, and even we have some missed sync between CPU's L1 caches, it's not
+	// critical for logging. So.. don't lock CPU ;)
+	if l.level < level {
 		return
 	}
 
