@@ -13,6 +13,7 @@ func utilFillLog(log mlog.Logger) {
 	log.Info("info msg")
 	log.Warning("warning msg")
 	log.Error("error msg")
+	log.Panic("panic msg")
 	log.Fatal("fatal msg")
 }
 
@@ -29,6 +30,9 @@ func utilFillLogCB(log mlog.Logger) {
 	log.Event(mlog.Error, func(e mlog.Event) {
 		e.String("msg", "error msg")
 	})
+	log.Event(mlog.Panic, func(e mlog.Event) {
+		e.String("msg", "panic msg")
+	})
 	log.Event(mlog.Fatal, func(e mlog.Event) {
 		e.String("msg", "fatal msg")
 	})
@@ -41,6 +45,14 @@ func utilTestLevel(t *testing.T, out string, level mlog.Level) {
 
 	if inc := strings.Contains(out, "fatal msg"); inc != (level >= mlog.Fatal) {
 		t.Fatal("Failed FATAL level check (msg output)")
+	}
+
+	if inc := strings.Contains(out, "PANIC"); inc != (level >= mlog.Panic) {
+		t.Fatal("Failed PANIC level check", out)
+	}
+
+	if inc := strings.Contains(out, "panic msg"); inc != (level >= mlog.Panic) {
+		t.Fatal("Failed PANIC level check (msg output)")
 	}
 
 	if inc := strings.Contains(out, "ERROR"); inc != (level >= mlog.Error) {
@@ -88,6 +100,20 @@ func TestLoggerFatal(t *testing.T) {
 	buf.Reset()
 	utilFillLogCB(logger)
 	utilTestLevel(t, string(buf.Bytes()), mlog.Fatal)
+}
+
+func TestLoggerPanic(t *testing.T) {
+	buf := &bytes.Buffer{}
+	logbook := NewLogbook(buf)
+	logger := logbook.Joiner().Join("test")
+
+	logbook.SetLevel("test", mlog.Panic)
+	utilFillLog(logger)
+	utilTestLevel(t, string(buf.Bytes()), mlog.Panic)
+
+	buf.Reset()
+	utilFillLogCB(logger)
+	utilTestLevel(t, string(buf.Bytes()), mlog.Panic)
 }
 
 func TestLoggerError(t *testing.T) {

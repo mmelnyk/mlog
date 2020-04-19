@@ -10,4 +10,6 @@ const (
 var (
 	// ErrDisabledLogging indicates when logging is disabled
 	ErrDisabledLogging = errors.New("Logging is disabled")
+	// ErrUnmarshalNil indicates error when Unmarshal called for nil pointer
+	ErrUnmarshalNil = errors.New("Unmarshal to nil is not possible")
 )

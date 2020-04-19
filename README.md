@@ -1,7 +1,7 @@
 # mlog
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/mmelnyk/mlog/blob/master/LICENSE) [![Actions Status](https://github.com/mmelnyk/mlog/workflows/Test/badge.svg)](https://github.com/mmelnyk/mlog/actions) [![GoDoc](https://godoc.org/go.melnyk.org/mlog?status.svg)](https://godoc.org/go.melnyk.org/mlog) [![Go Report Card](https://goreportcard.com/badge/go.melnyk.org/mlog)](https://goreportcard.com/report/go.melnyk.org/mlog) [![Coverage Status](https://codecov.io/gh/mmelnyk/mlog/branch/master/graph/badge.svg)](https://codecov.io/gh/mmelnyk/mlog)
+[![License][license-img]][license] [![Actions Status][action-img]][action] [![GoDoc][godoc-img]][godoc] [![Go Report Card][goreport-img]][goreport] [![Coverage Status][codecov-img]][codecov]
 
-mlog is set of defined interfaces to add customable and high performance logging. It is not a logging framework with fancy output, but it allows to build this framework in effective way (see console logger as example).
+mlog is set of defined interfaces to add customable and high performance logging. It is not a logger with fancy output, but it allows to build any logger in effective way using mlog as base framework (see console logger as example).
 
 ## Why?
 We can find many fantastic and popular loggers (just a few examples - logrus and zap) for our golang projects and they work very well in most condition. However, there is a few cases when they do not work as expected:
@@ -17,7 +17,8 @@ So, I created mlog to solve following tasks:
 - Blazing fast
 - Low to zero allocation
 - Level logging
-- Very simple
+- Very
+- No dependencies
 - Flexibility and High level of customization
 
 ## How?
@@ -30,10 +31,13 @@ Basic interface and logging via closires allow mlog to have very minimal instrum
 ### Leveled Logging
 mlog defines logging at the following levels:
  - Fatal
+ - Panic
  - Error
  - Warning
  - Info
  - Verbose
+
+**Warning** - logger.Fatal and logger.Panic do **NOT DO** calls panic() or os.Exit() functions. You **MUST** consider **the logger does not control your application flow**.
 
 We can control default and dedicasted logging level via logbook's SetLevel call.
 Example:
@@ -91,6 +95,7 @@ import (
 ```
 
 ## Benchmarks
+TODO: Update benchmarks
 
 ```
 pkg: go.melnyk.org/mlog/benchmarks
@@ -106,3 +111,19 @@ BenchmarkStaticText/bloom42/rz-go-6         	 5000000	       324 ns/op	       0 
 BenchmarkStaticText/mmelnyk/mlog-6          	10000000	       299 ns/op	       0 B/op	       0 allocs/op
 BenchmarkStaticText/mmelnyk/mlog/c-6        	10000000	       214 ns/op	       0 B/op	       0 allocs/op
 ```
+
+## Development Status: Stable
+All APIs are finalized, and no breaking changes will be made in the 1.x series
+of releases.
+
+
+[license-img]: https://img.shields.io/badge/license-MIT-blue.svg
+[license]: https://github.com/mmelnyk/mlog/blob/master/LICENSE
+[action-img]: https://github.com/mmelnyk/mlog/workflows/Test/badge.svg
+[action]: https://github.com/mmelnyk/mlog/actions
+[godoc-img]: https://godoc.org/go.melnyk.org/mlog?status.svg
+[godoc]: https://godoc.org/go.melnyk.org/mlog
+[goreport-img]: https://goreportcard.com/badge/go.melnyk.org/mlog
+[goreport]: https://goreportcard.com/report/go.melnyk.org/mlog
+[codecov-img]: https://codecov.io/gh/mmelnyk/mlog/branch/master/graph/badge.svg
+[codecov]: https://codecov.io/gh/mmelnyk/mlog

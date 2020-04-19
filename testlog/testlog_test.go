@@ -33,15 +33,16 @@ func TestTestlog(t *testing.T) {
 	}
 
 	logger.Fatal("fatal")
+	logger.Panic("panic")
 	logger.Error("error")
 	logger.Warning("warning")
 	logger.Info("info")
 	logger.Verbose("verbose")
-	logger.Event(mlog.Verbose, func(e mlog.Event){
+	logger.Event(mlog.Verbose, func(e mlog.Event) {
 		e.String("string", "value")
-		e.Int("int",1000)
-		e.Uint("uint",2000)
-		e.Hex("hex",3000)
+		e.Int("int", 1000)
+		e.Uint("uint", 2000)
+		e.Hex("hex", 3000)
 		e.Error("error", nil)
 	})
 }

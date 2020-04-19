@@ -32,6 +32,9 @@ func (l *logger) Warning(msg string) {
 func (l *logger) Error(msg string) {
 	l.output(mlog.Error, msg, nil)
 }
+func (l *logger) Panic(msg string) {
+	l.output(mlog.Panic, msg, nil)
+}
 func (l *logger) Fatal(msg string) {
 	l.output(mlog.Fatal, msg, nil)
 }
@@ -75,7 +78,7 @@ func (l *logger) output(level mlog.Level, str string, cb func(evt mlog.Event)) {
 	evt.buffer.WriteByte('\n')
 
 	// Callstack for fatal event
-	if level == mlog.Fatal {
+	if level <= mlog.Panic {
 		var pcsb [20]uintptr
 		pcs := pcsb[:]
 		depth := runtime.Callers(3, pcs)

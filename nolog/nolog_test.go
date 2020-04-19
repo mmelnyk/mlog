@@ -33,6 +33,7 @@ func TestNolog(t *testing.T) {
 	}
 
 	logger.Fatal("fatal")
+	logger.Panic("panic")
 	logger.Error("error")
 	logger.Warning("warning")
 	logger.Info("info")

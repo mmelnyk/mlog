@@ -30,6 +30,7 @@ type Logger interface {
 	Info(string)
 	Warning(string)
 	Error(string)
+	Panic(string)
 	Fatal(string)
 	Event(Level, func(Event))
 }

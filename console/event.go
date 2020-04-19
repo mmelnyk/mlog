@@ -93,7 +93,9 @@ func (evt *event) justJoinLevel(lv mlog.Level) {
 
 	switch lv {
 	case mlog.Fatal:
-		representation = "\033[31mFATAL   \033[0m]\t"
+		representation = "\033[91;1mFATAL   \033[0m]\t"
+	case mlog.Panic:
+		representation = "\033[91mPANIC   \033[0m]\t"
 	case mlog.Error:
 		representation = "\033[31mERROR   \033[0m]\t"
 	case mlog.Warning:

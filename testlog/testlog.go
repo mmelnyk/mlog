@@ -20,6 +20,7 @@ func (l *logger) Verbose(string) {}
 func (l *logger) Info(string)    {}
 func (l *logger) Warning(string) {}
 func (l *logger) Error(string)   {}
+func (l *logger) Panic(string)   {}
 func (l *logger) Fatal(string)   {}
 
 func (l *logger) Event(level mlog.Level, cb func(lg mlog.Event)) {
