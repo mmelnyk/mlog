@@ -31,4 +31,11 @@ func TestNolog(t *testing.T) {
 	if len(levels) != 0 {
 		t.Fatal("Levels should be empty instead of ", levels)
 	}
+
+	logger.Fatal("fatal")
+	logger.Error("error")
+	logger.Warning("warning")
+	logger.Info("info")
+	logger.Verbose("verbose")
+	logger.Event(mlog.Verbose, nil)
 }
