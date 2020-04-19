@@ -51,6 +51,16 @@ mlog defines:
 - Joiner as a way to get/join logger into logbook
 - Logger as a way to output log messages
 
+## Avalable implementations
+
+### Official
+ * console - pretty console-formated logger
+ * nolog - performance optimized output supressed logger
+ * testlog - silent logger for unittests and code coverage tests
+
+### Additional
+ Please check [https://github.com/mlog-adapters](https://github.com/mlog-adapters).
+
 ## Examples
 
 ### Simple console logger
