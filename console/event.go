@@ -30,9 +30,9 @@ func (evt *event) Int(name string, value int) {
 	b := buf[:0]
 	b = strconv.AppendInt(b, (int64)(value), 10)
 	evt.buffer.WriteString(name)
-	evt.buffer.WriteRune('=')
+	evt.buffer.WriteByte('=')
 	evt.buffer.Write(b)
-	evt.buffer.WriteRune(' ')
+	evt.buffer.WriteByte(' ')
 }
 
 func (evt *event) Uint(name string, value uint) {
@@ -50,7 +50,7 @@ func (evt *event) Hex(name string, value uint) {
 	b := buf[:0]
 	b = strconv.AppendUint(b, (uint64)(value), 16)
 	evt.buffer.WriteString(name)
-	evt.buffer.WriteString("=0x")
+	evt.buffer.WriteString(`=0x`)
 	evt.buffer.Write(b)
 	evt.buffer.WriteByte(' ')
 }
