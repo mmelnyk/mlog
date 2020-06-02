@@ -29,9 +29,9 @@ func TestEventEscapingString(t *testing.T) {
 		t.Fatal("Expected not nil event")
 	}
 
-	ev.String("name", "\"value\ttab\nnew\r\b\falso\"\u2028\u2029the end")
+	ev.String("name", "\"value\ttab\nnew\r\b\falso\"\u2028\u2029 \\ \x03\x02the end")
 
-	if string(ev.buffer.Bytes()) != `"name":"\"value\ttab\nnew\r\b\falso\"\n\nthe end", ` {
+	if string(ev.buffer.Bytes()) != `"name":"\"value\ttab\nnew\r\b\falso\"\n\n \\ the end", ` {
 		t.Fatal("ev.String build not expected output:", string(ev.buffer.Bytes()))
 	}
 
