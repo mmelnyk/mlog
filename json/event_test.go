@@ -22,6 +22,22 @@ func TestEventString(t *testing.T) {
 	putEvent(ev)
 }
 
+func TestEventEscapingString(t *testing.T) {
+	ev := getEvent()
+
+	if ev == nil {
+		t.Fatal("Expected not nil event")
+	}
+
+	ev.String("name", "\"value\ttab\nnew\r\b\falso\"\u2028\u2029the end")
+
+	if string(ev.buffer.Bytes()) != `"name":"\"value\ttab\nnew\r\b\falso\"\n\nthe end", ` {
+		t.Fatal("ev.String build not expected output:", string(ev.buffer.Bytes()))
+	}
+
+	putEvent(ev)
+}
+
 func TestEventIntPos(t *testing.T) {
 	ev := getEvent()
 
