@@ -8,27 +8,27 @@ type logger struct {
 	// nolog logger
 }
 
-func (l *logger) Verbose(string) {}
-func (l *logger) Info(string)    {}
-func (l *logger) Warning(string) {}
-func (l *logger) Error(string)   {}
-func (l *logger) Panic(string)   {}
-func (l *logger) Fatal(string)   {}
+func (*logger) Verbose(string) {}
+func (*logger) Info(string)    {}
+func (*logger) Warning(string) {}
+func (*logger) Error(string)   {}
+func (*logger) Panic(string)   {}
+func (*logger) Fatal(string)   {}
 
-func (l *logger) Event(level mlog.Level, cb func(lg mlog.Event)) {}
+func (*logger) Event(level mlog.Level, cb func(lg mlog.Event)) {}
 
 type logbook struct {
 	// nolog logbook and joiner
 }
 
 // SetLevel is part of mlog.Logbook interface implementation
-func (lb *logbook) SetLevel(string, mlog.Level) error {
+func (*logbook) SetLevel(string, mlog.Level) error {
 	// Logging is disabled, return error
 	return mlog.ErrDisabledLogging
 }
 
 // Levels is part of mlog.Logbook interface implementation
-func (lb *logbook) Levels() mlog.Levels {
+func (*logbook) Levels() mlog.Levels {
 	// Logging is disabled, no logging levels
 	lvs := make(mlog.Levels)
 	return lvs
@@ -40,7 +40,7 @@ func (lb *logbook) Joiner() mlog.Joiner {
 }
 
 // Join is part of mlog.Joiner interface implementation
-func (lb *logbook) Join(string) mlog.Logger {
+func (*logbook) Join(string) mlog.Logger {
 	return &logger{}
 }
 

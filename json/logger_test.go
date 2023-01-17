@@ -95,11 +95,11 @@ func TestLoggerFatal(t *testing.T) {
 
 	logbook.SetLevel("test", mlog.Fatal)
 	utilFillLog(logger)
-	utilTestLevel(t, string(buf.Bytes()), mlog.Fatal)
+	utilTestLevel(t, buf.String(), mlog.Fatal)
 
 	buf.Reset()
 	utilFillLogCB(logger)
-	utilTestLevel(t, string(buf.Bytes()), mlog.Fatal)
+	utilTestLevel(t, buf.String(), mlog.Fatal)
 }
 
 func TestLoggerPanic(t *testing.T) {
@@ -109,11 +109,11 @@ func TestLoggerPanic(t *testing.T) {
 
 	logbook.SetLevel("test", mlog.Panic)
 	utilFillLog(logger)
-	utilTestLevel(t, string(buf.Bytes()), mlog.Panic)
+	utilTestLevel(t, buf.String(), mlog.Panic)
 
 	buf.Reset()
 	utilFillLogCB(logger)
-	utilTestLevel(t, string(buf.Bytes()), mlog.Panic)
+	utilTestLevel(t, buf.String(), mlog.Panic)
 }
 
 func TestLoggerError(t *testing.T) {
@@ -123,11 +123,11 @@ func TestLoggerError(t *testing.T) {
 
 	logbook.SetLevel("test", mlog.Error)
 	utilFillLog(logger)
-	utilTestLevel(t, string(buf.Bytes()), mlog.Error)
+	utilTestLevel(t, buf.String(), mlog.Error)
 
 	buf.Reset()
 	utilFillLogCB(logger)
-	utilTestLevel(t, string(buf.Bytes()), mlog.Error)
+	utilTestLevel(t, buf.String(), mlog.Error)
 }
 
 func TestLoggerWarning(t *testing.T) {
@@ -137,11 +137,11 @@ func TestLoggerWarning(t *testing.T) {
 
 	logbook.SetLevel("test", mlog.Warning)
 	utilFillLog(logger)
-	utilTestLevel(t, string(buf.Bytes()), mlog.Warning)
+	utilTestLevel(t, buf.String(), mlog.Warning)
 
 	buf.Reset()
 	utilFillLogCB(logger)
-	utilTestLevel(t, string(buf.Bytes()), mlog.Warning)
+	utilTestLevel(t, buf.String(), mlog.Warning)
 }
 
 func TestLoggerInfo(t *testing.T) {
@@ -151,11 +151,11 @@ func TestLoggerInfo(t *testing.T) {
 
 	logbook.SetLevel("test", mlog.Info)
 	utilFillLog(logger)
-	utilTestLevel(t, string(buf.Bytes()), mlog.Info)
+	utilTestLevel(t, buf.String(), mlog.Info)
 
 	buf.Reset()
 	utilFillLogCB(logger)
-	utilTestLevel(t, string(buf.Bytes()), mlog.Info)
+	utilTestLevel(t, buf.String(), mlog.Info)
 }
 
 func TestLoggerVerbose(t *testing.T) {
@@ -165,9 +165,9 @@ func TestLoggerVerbose(t *testing.T) {
 
 	logbook.SetLevel("test", mlog.Verbose)
 	utilFillLog(logger)
-	utilTestLevel(t, string(buf.Bytes()), mlog.Verbose)
+	utilTestLevel(t, buf.String(), mlog.Verbose)
 
 	buf.Reset()
 	utilFillLogCB(logger)
-	utilTestLevel(t, string(buf.Bytes()), mlog.Verbose)
+	utilTestLevel(t, buf.String(), mlog.Verbose)
 }
