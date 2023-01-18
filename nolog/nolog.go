@@ -15,7 +15,7 @@ func (*logger) Error(string)   {}
 func (*logger) Panic(string)   {}
 func (*logger) Fatal(string)   {}
 
-func (*logger) Event(level mlog.Level, cb func(lg mlog.Event)) {}
+func (*logger) Event(mlog.Level, func(lg mlog.Event)) {}
 
 type logbook struct {
 	// nolog logbook and joiner
