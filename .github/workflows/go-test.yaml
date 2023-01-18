@@ -17,7 +17,7 @@ jobs:
     - name: Test
       run: go test -cover -coverprofile=coverage -covermode=atomic ./...
     - name: Upload code coverage
-      if: matrix.platform == 'ubuntu-latest' && matrix.goversion=="stable"
+      if: matrix.platform == 'ubuntu-latest' && matrix.goversion=='stable'
       uses: codecov/codecov-action@v3
       with:
         files: ./coverage
