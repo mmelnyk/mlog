@@ -4,20 +4,20 @@ jobs:
   test:
     strategy:
       matrix:
-        go-version: [1.14.x, 1.15.x]
+        goversion: [1.14.x, oldstable, stable]
         platform: [ubuntu-latest, macos-latest, windows-latest]
     runs-on: ${{ matrix.platform }}
     steps:
     - name: Install Go
-      uses: actions/setup-go@v1
+      uses: actions/setup-go@v3
       with:
-        go-version: ${{ matrix.go-version }}
+        go-version: ${{ matrix.goversion }}
     - name: Checkout code
-      uses: actions/checkout@v1
+      uses: actions/checkout@v3
     - name: Test
       run: go test -cover -coverprofile=coverage -covermode=atomic ./...
     - name: Upload code coverage
-      if: matrix.platform == 'ubuntu-latest'
-      uses: codecov/codecov-action@v1
+      if: matrix.platform == 'ubuntu-latest' && matrix.goversion=="stable"
+      uses: codecov/codecov-action@v3
       with:
-        file: ./coverage
+        files: ./coverage
