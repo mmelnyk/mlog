@@ -5,7 +5,6 @@ import (
 	"testing"
 )
 
-// TODO
 func TestEventString(t *testing.T) {
 	ev := getEvent()
 

@@ -32,7 +32,7 @@ func TestBasicLevels(t *testing.T) {
 		t.Fail()
 	}
 
-	var l Level = Verbose + 1
+	l := Verbose + 1
 	if l.String() != "unknown" {
 		t.Fail()
 	}
@@ -63,7 +63,7 @@ func TestBasicUppercaseLevels(t *testing.T) {
 		t.Fail()
 	}
 
-	var l Level = Verbose + 1
+	l := Verbose + 1
 	if l.UppercaseString() != "UNKNOWN" {
 		t.Fail()
 	}
@@ -94,9 +94,9 @@ func TestBasicLevelMarshal(t *testing.T) {
 }
 
 func TestBasicLevelUnmarshal(t *testing.T) {
-	obj := []struct {
+	var obj []struct {
 		L Level
-	}{}
+	}
 
 	tests := `[{"L":"fatal"},{"L":"panic"},{"L":"error"},{"L":"warning"},{"L":"info"},{"L":"verbose"}]`
 	expected := []struct {

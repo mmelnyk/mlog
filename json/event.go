@@ -24,7 +24,7 @@ func (evt *event) String(name string, value string) {
 	evt.buffer.WriteByte('"')
 	evt.buffer.WriteString(name)
 	evt.buffer.WriteString(`":"`)
-	evt.string(value)
+	evt.escapeString(value)
 	evt.buffer.WriteString(`", `)
 }
 
@@ -66,7 +66,7 @@ func (evt *event) Error(name string, value error) {
 	evt.buffer.WriteString(name)
 	if value != nil {
 		evt.buffer.WriteString(`":"`)
-		evt.string(value.Error())
+		evt.escapeString(value.Error())
 		evt.buffer.WriteString(`", `)
 	} else {
 		evt.buffer.WriteString(`":null, `)
@@ -75,7 +75,7 @@ func (evt *event) Error(name string, value error) {
 
 // Formating part
 
-func (evt *event) string(s string) {
+func (evt *event) escapeString(s string) {
 	start := 0
 	for curr, c := range s {
 		if c >= 0x20 && c != '\\' && c != '"' && c != '\u2028' && c != '\u2029' && c < utf8.RuneSelf {
